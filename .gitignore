@@ -1,0 +1,72 @@
+# ================================
+# Python
+# ================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+.python-version
+
+# ================================
+# Flask
+# ================================
+instance/
+.webassets-cache/
+
+# Archivos de sesión o temporales
+*.log
+
+# ================================
+# Variables de entorno
+# ================================
+.env
+.env.local
+.env.development
+.env.production
+
+# ================================
+# Dataset (MovieLens)
+# ================================
+# Ignorar datasets descargados localmente
+!dataset/README.md
+
+# ================================
+# Cache de la app
+# ================================
+# Cache de posters OMDb u otros
+*.cache
+.cache/
+poster_cache/
+movie_posters.json
+
+# ================================
+# IDEs / Editores
+# ================================
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ================================
+# Sistema Operativo
+# ================================
+.DS_Store
+Thumbs.db
+
+# Linux
+*~
+.nfs*
+
+# ================================
+# Frontend estático generado
+# ================================
+# Si en el futuro usas bundlers (Vite/Webpack)
+dist/
+build/
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore

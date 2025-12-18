@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sistema de Recomendación de Películas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <script src="/static/main.js" defer></script>
+</head>
+
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-title-block">
+        <div class="app-title">
+          🎬 Recomendador de Películas
+          <span class="app-title-pill">MovieLens 100K · Flask</span>
+        </div>
+        <p class="app-subtitle">
+          Ingresa un <strong>ID de Usuario</strong> de MovieLens y obtén 10 películas recomendadas,
+          priorizando el <strong>género</strong> para mantener coherencia temática.
+        </p>
+      </div>
+      <div class="app-badge">
+        <span class="app-badge-dot"></span>
+        API Flask en vivo
+      </div>
+    </header>
+
+    <main class="app-body">
+      <!-- Panel de entrada -->
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title"><span>🔎</span> Parámetros de búsqueda</h2>
+            <p class="card-caption">Filtrado colaborativo basado en ítems, ponderado por género.</p>
+          </div>
+        </div>
+
+        <p class="hint">
+          Introduce un ID de usuario válido del dataset MovieLens (p. ej. <code>1</code>, <code>10</code>, <code>50</code>, etc.)
+          y presiona <strong>"Obtener Recomendaciones"</strong>.
+        </p>
+
+        <form id="recommendation-form">
+          <div class="form-row">
+            <div class="input-group">
+              <label for="user-id">ID de Usuario</label>
+              <input type="text" id="user-id" name="user-id" placeholder="Ejemplo: 1" autocomplete="off" />
+            </div>
+          </div>
+          <div class="button-row">
+            <button type="submit" id="submit-btn">
+              <span id="button-text">Obtener recomendaciones</span>
+              <span id="button-spinner" class="button-spinner" style="display: none;"></span>
+            </button>
+          </div>
+        </form>
+
+        <hr style="margin: 14px 0; border: none; border-top: 1px solid rgba(148,163,184,0.18); position: relative; z-index: 1;">
+
+        <form id="movie-search-form">
+          <div class="form-row">
+            <div class="input-group">
+              <label for="movie-title">Buscar película (OMDb)</label>
+              <input type="text" id="movie-title" name="movie-title" placeholder="Ej: Toy Story" autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-group">
+              <label for="movie-year">Año (opcional)</label>
+              <input type="text" id="movie-year" name="movie-year" placeholder="Ej: 1995" autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button type="submit" id="search-btn">
+              <span id="search-text">Buscar en OMDb</span>
+              <span id="search-spinner" class="button-spinner" style="display: none;"></span>
+            </button>
+          </div>
+
+          <div class="helper-row" style="margin-top: 8px;">
+            <div class="helper-pill">
+              Prueba rápida: <strong>Toy Story</strong> + <strong>1995</strong>
+            </div>
+          </div>
+        </form>
+
+        <div class="helper-row">
+          <div class="helper-pill">Consejo: los IDs válidos están entre <strong>1</strong> y <strong>943</strong>.</div>
+          <div class="chips">
+            <span class="chip" data-user-id="1">Usuario 1</span>
+            <span class="chip" data-user-id="10">Usuario 10</span>
+            <span class="chip" data-user-id="50">Usuario 50</span>
+          </div>
+        </div>
+
+        <div id="status" class="status status-muted">Esperando un ID de usuario...</div>
+      </section>
+
+      <!-- Panel de resultados -->
+      <section class="card">
+        <div class="card-secondary-header">
+          <h2 class="card-secondary-title">Resultados de recomendación</h2>
+          <span class="pill-accent">Top 10 películas más relevantes</span>
+        </div>
+
+        <ul class="legend-list">
+          <li>
+            <div class="legend-dot"></div>
+            <div><strong>Score</strong>: afinidad calculada combinando similitud de <strong>género</strong> y patrones de rating.</div>
+          </li>
+          <li>
+            <div class="legend-dot legend-dot-alt"></div>
+            <div>Se evita recomendar películas que el usuario ya ha visto.</div>
+          </li>
+        </ul>
+
+        <div id="results-container">
+          <div class="empty-state">
+            <strong>Sin resultados aún.</strong> Ingresa un ID de usuario en el panel izquierdo para ver las recomendaciones.
+          </div>
+        </div>
+
+        <div id="history-container" style="margin-top: 14px;">
+          <div class="empty-state">
+            <strong>Historial del usuario.</strong> Cuando consultes recomendaciones, aquí aparecerán las películas que el usuario ya vio.
+          </div>
+        </div>
+
+        <div id="omdb-container" style="margin-top: 14px;">
+          <div class="empty-state">
+            <strong>Búsqueda OMDb.</strong> Usa el panel izquierdo para buscar una película y verificar si tu API key funciona.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  </body>
+</html>
